@@ -29,8 +29,10 @@ def answer(num):
     current_question += 1
     question = current_survey.questions[int(num)].question
     answer = request.form[question]
+    print(request.form[question], "answer")
     responses[question] = answer
-    return redirect(f"/question/{int(num)+1}")
+    current_question += 1
+    return redirect(f"/question/{current_question}")
 
 @app.route("/answers")
 def answers():
