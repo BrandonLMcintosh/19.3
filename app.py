@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, redirect
+from flask import Flask, request, render_template, redirect, flash
 from flask_debugtoolbar import DebugToolbarExtension
 from surveys import surveys
 
@@ -8,6 +8,7 @@ debug = DebugToolbarExtension(app)
 
 responses = {}
 current_survey = surveys["satisfaction"]
+current_question = 0
 
 @app.route("/")
 def index():
@@ -16,15 +17,21 @@ def index():
 
 @app.route("/question/<num>")
 def question(num):
-    current_question = num
-    return render_template("question.html", survey=current_survey, num=int(num))
+    global current_question
+    num = int(num)
+    if num != current_question:
+        return redirect(f"/question/{current_question}")
+    return render_template("question.html", survey=current_survey, num=num)
 
 @app.route("/answers/<num>", methods=["POST"])
 def answer(num):
+    global current_question
     question = current_survey.questions[int(num)].question
     answer = request.form[question]
+    print(request.form[question], "answer")
     responses[question] = answer
-    return redirect(f"/question/{int(num)+1}")
+    current_question += 1
+    return redirect(f"/question/{current_question}")
 
 @app.route("/answers")
 def answers():
