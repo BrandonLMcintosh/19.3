@@ -1,0 +1,11 @@
+{%extends "base.html"%}
+{%block page_title%}Responses{%endblock%}
+{%block survey_title%}{{survey.title}}{%endblock%}
+{%block instructions%}Responses:{%endblock%}
+{%block form%}
+<ul>
+{%for question, answer in responses.items()%}
+<li>{{question}}: {{answer}}</li>
+{%endfor%}
+</ul>
+{%endblock%}

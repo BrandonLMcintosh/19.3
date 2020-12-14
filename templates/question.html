@@ -1,0 +1,20 @@
+{%extends "base.html"%}
+{%block page_title%}Question: {{num}}{%endblock%}
+{%block survey_title%}{{survey.title}}{%endblock%}
+{%block instructions%}{{survey.instructions}}{%endblock%}
+{%block form%}
+    {%if num >= survey.questions|length%}
+        <button><a href="/answers">Submit Survey</a></button>
+    {%else%}
+    <form action="/answers/{{num}}" method="POST">
+        <p>{{survey.questions[num].question}}</p>
+        <ul>
+        {%for choice in survey.questions[num].choices%}
+            <li><input name="{{survey.questions[num].question}}" type="radio" value="{{choice}}"><label for="{{choice}}">{{choice}}</label></li>
+        {%endfor%}
+        </ul>
+        <input type="submit" value="Submit Question">
+    </form>
+
+    {%endif%}
+{%endblock%}
