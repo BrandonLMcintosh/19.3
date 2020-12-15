@@ -7,6 +7,9 @@
 </head>
 <body>
     <h1>{%block survey_title%}{%endblock%}</h1>
+    {%for msg in get_flashed_messages()%}
+        <p>{{msg}}</p>
+    {%endfor%}
     <h3>{%block instructions%}{%endblock%}</h3>
         {%block form%}{%endblock%}
 </body>

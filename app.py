@@ -20,6 +20,7 @@ def question(num):
     num = int(num)
     if num != current_question:
         num = current_question
+        flash("Invalid question. Please answer this question before moving on.")
         return redirect(f"/question/{num}")
     return render_template("question.html", survey=current_survey, num=num)
 
