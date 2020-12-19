@@ -4,7 +4,7 @@
 {%block instructions%}Responses:{%endblock%}
 {%block form%}
 <ul>
-{%for question, answer in responses.items()%}
+{%for question, answer in session["responses"].items()%}
 <li>{{question}}: {{answer}}</li>
 {%endfor%}
 </ul>
